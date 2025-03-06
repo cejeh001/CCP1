@@ -3,7 +3,11 @@ html, body {
     padding: 0;
   }
   canvas {
-    display: block;
     border: 1px solid black;
     border-radius: 10px;
+  }
+
+  /* canvas body code */
+  .canvas-body {
+    position: absolute;
   }
