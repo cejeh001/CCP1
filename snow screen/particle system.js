@@ -1,5 +1,23 @@
 // snowflakes array 
 let snowflakes = [];
+let snowflake;
+
+function preload(){
+    snowflake = loadImage("/images/snowflake.png");
+
+    // loop for adding snowflakes
+    for (i = 0; i < 50; i++){
+        addSnowflake();
+    }
+}
+
+function setup(){
+    canvas = createCanvas(windowWidth, windowHeight);
+}
+
+function draw(){
+    drawSnowflake();
+}
 
 function addSnowflake(){
 
@@ -13,8 +31,11 @@ function addSnowflake(){
 
 function drawSnowflake(){
     snowflakes. forEach(flake => {
-        fill("whitesmoke");
+        fill("black");
         ellipse(flake.x, flake.y, flake.size);
+
+        loadImage("/images/snowflake.png");
+         
         // increase the y so it goes down
         flake.y += flake.ySpeed;
 

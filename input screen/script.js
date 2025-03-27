@@ -8,9 +8,6 @@ let canvas = null;
 let offsetX = 0;
 let offsetY = 0;
 
-// snowman images
-let snowman, snowmanMouthOpen, snowmanChewing, snowmanSpitOut, snowmanHoldingBelly;
-
 // lines array
 let lines = [];
 
@@ -27,13 +24,20 @@ function setup() {
   // parent it to div in HTML
   // canvas.parent('canvas');
 
+  // done button underneath
+  let doneButton = createButton('Snow');
+  doneButton.position(250, 510);
+
+  // if button pressed, save drawing as png
+  doneButton.mousePressed(saveDrawing);
+
   background(255);
   angleMode(DEGREES);
 }
 
-function getSnowflakeInfo(){
-  return lines;
-}
+// function getSnowflakeInfo(){
+//   return lines;
+// }
 
 function draw() {
   if (mouseIsPressed) {
@@ -61,11 +65,15 @@ function draw() {
     }
   }
 
-  let snowflakeInfo = getSnowflakeInfo();
-  console.log(snowflakeInfo); //print the array of lines
+  // let snowflakeInfo = getSnowflakeInfo();
+  // console.log(snowflakeInfo); //print the array of lines
 
 }
 
+// save drawing function
+function saveDrawing(){
+  save("snowflake.png");
+}
 
 // store snowflake image as texture
 // put into particle system
@@ -80,4 +88,3 @@ function draw() {
 // make global variables for x1 and y1 and make them mousex and mouse y
 // if the count is a multiple of 2
 // make the global variables for x2 and y2 and make them mousex and mousey
-// 
