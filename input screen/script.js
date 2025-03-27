@@ -8,8 +8,8 @@ let canvas = null;
 let offsetX = 0;
 let offsetY = 0;
 
-// lines array
-let lines = [];
+// snowflakes array
+let snowflakes = [];
 
 
 // mouse mode
@@ -30,6 +30,11 @@ function setup() {
 
   // if button pressed, save drawing as png
   doneButton.mousePressed(saveDrawing);
+
+  // add snowflakes to aarray
+  for (let i = 0; i < 120; i++){
+    snowflakes.push(new Snowflake());
+  }
 
   background(255);
   angleMode(DEGREES);
@@ -73,6 +78,56 @@ function draw() {
 // save drawing function
 function saveDrawing(){
   save("snowflake.png");
+}
+
+// snowflake function class thing
+class Snowflake{
+  // consturctor
+  constructor(){
+
+    // positions
+    this.posX = 0;
+    this.posY = random(-height, 0);
+
+    // angle 
+    this.initialAngle = random(0, 360);
+
+    // size
+    this.size = random(2, 5);
+
+    // size
+    this.radius = sqrt(random(pow(width / 2, 2)));
+
+    // colour
+    this.color = color(random(200, 256), random(200, 256), random(200, 256));
+  }
+
+
+  // methods
+  fall(time){
+    // define angular speed
+    let angularSpeed = 35;
+
+    let angle = this.initialAngle + angularSpeed * time;
+
+    // x position follows a sine wave
+    this.posX = width / 2 + this.radius * sin(angle);
+
+    // Different size snowflakes fall at different y speeds
+    let ySpeed = 8 / this.size;
+    this.posY += ySpeed;
+
+    // When snowflake reaches the bottom, move it to the top
+    if (this.posY > height) {
+      this.posY = -50;
+    }
+  }
+
+  display() {
+    fill(this.color);
+    noStroke();
+    ellipse(this.posX, this.posY, this.size);
+  }
 }
 
 // store snowflake image as texture
