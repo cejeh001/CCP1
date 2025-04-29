@@ -8,8 +8,9 @@ const MIN_SPEED = 1;
 const MAX_SPEED = 5;
 const ROTATION_SPEED = 2;
 
-// Slider variable
-let slider;
+// Slider variables
+let sidesSlider;
+let speedSlider;
 
 // Number of snowflakes
 let numSnowflakes = 100;
@@ -20,6 +21,9 @@ let snowflakes = [];
 // Number of sides of the snowflake
 let numSides = DEFAULT_SIDES;
 
+// Speed of the snowflakes
+let snowflakeSpeed = MIN_SPEED;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
@@ -28,25 +32,38 @@ function setup() {
     snowflakes.push(new Snowflake());
   }
   // Create a slider to change the number of sides
-  slider = createSlider(MIN_SIDES, MAX_SIDES, DEFAULT_SIDES);
-  slider.position(10, 10);
-  slider.size(80);
-  slider.input(updateNumSides);
+  sidesSlider = createSlider(MIN_SIDES, MAX_SIDES, DEFAULT_SIDES);
+  sidesSlider.position(10, 10);
+  sidesSlider.size(80);
+  sidesSlider.input(updateNumSides);
+  
+  // Create a slider to change the speed of the snowflakes
+  speedSlider = createSlider(MIN_SPEED, MAX_SPEED, MIN_SPEED);
+  speedSlider.position(10, 40);
+  speedSlider.size(80);
+  speedSlider.input(updateSnowflakeSpeed);
 }
 
 function draw() {
   background(220);
   // Update and display snowflakes
   for (let i = 0; i < snowflakes.length; i++) {
-    snowflakes[i].update();
+    snowflakes[i].update(snowflakeSpeed);
     snowflakes[i].display(numSides);
   }
 }
 
 // Update the number of sides based on the slider value
 function updateNumSides() {
-  if (slider) {
-    numSides = slider.value();
+  if (sidesSlider) {
+    numSides = sidesSlider.value();
+  }
+}
+
+// Update the speed of the snowflakes based on the slider value
+function updateSnowflakeSpeed() {
+  if (speedSlider) {
+    snowflakeSpeed = speedSlider.value();
   }
 }
 
@@ -58,15 +75,13 @@ class Snowflake {
     this.y = random(-height);
     // Size
     this.size = random(MIN_SIZE, MAX_SIZE);
-    // Speed
-    this.speed = random(MIN_SPEED, MAX_SPEED);
     // Angle
     this.angle = random(0, 360);
   }
 
-  update() {
+  update(speed) {
     // Move down
-    this.y += this.speed;
+    this.y += speed;
     // If off the bottom, reset to top
     if (this.y > height) {
       this.y = random(-height);
