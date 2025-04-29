@@ -32,9 +32,9 @@ function setup() {
   doneButton.mousePressed(saveDrawing);
 
   // add snowflakes to aarray
-  for (let i = 0; i < 120; i++){
-    snowflakes.push(new Snowflake());
-  }
+  // for (let i = 0; i < 120; i++){
+  //   snowflakes.push(new Snowflake());
+  // }
 
   background(255);
   angleMode(DEGREES);
@@ -48,16 +48,16 @@ function draw() {
   if (mouseIsPressed) {
     
 
-    // line properties
-    let drawnLine = {
-      x1: pmouseX,
-      y1: pmouseY,
-      x2: mouseX,
-      y2: mouseY
-    };
+    // // line properties
+    // let drawnLine = {
+    //   x1: pmouseX,
+    //   y1: pmouseY,
+    //   x2: mouseX,
+    //   y2: mouseY
+    // };
 
-    // add to lines array
-    lines.push(drawnLine);
+    // // add to lines array
+    // lines.push(drawnLine);
     // draw line
     stroke(penColor); 
     strokeWeight(penSize);
@@ -132,8 +132,6 @@ class Snowflake{
 
 // store snowflake image as texture
 // put into particle system
-
-// particle system
 
 // make class for lines
 // decide myline coordinates
